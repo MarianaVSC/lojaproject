@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Produtos</h1>
+
+<a href="{% url 'lojaapp:criar_produto' %}">Cadastrar Produto</a>
+
+<div class="grid-produtos">
+
+{% for produto in produtos %}
+
+<div class="produto-card">
+
+<img src="{{ produto.image.url }}">
+
+<h3>{{ produto.titulo }}</h3>
+
+<p>R$ {{ produto.preco_mercado }}</p>
+
+<a href="{% url 'lojaapp:produto_detalhe' produto.id %}">
+Ver Produto
+</a>
+
+<a href="{% url 'lojaapp:add_carrinho' produto.id %}">
+Adicionar ao carrinho
+</a>
+
+<a href="{% url 'lojaapp:editar_produto' produto.id %}">
+Editar
+</a>
+
+<a href="{% url 'lojaapp:deletar_produto' produto.id %}">
+Excluir
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

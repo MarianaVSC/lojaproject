@@ -1,0 +1,18 @@
+<h2>Finalizar Pedido</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input type="text" name="nome" placeholder="Seu nome">
+
+<input type="text" name="endereco" placeholder="Endereço">
+
+<input type="text" name="telefone" placeholder="Telefone">
+
+<input type="email" name="email" placeholder="Email">
+
+<button type="submit">
+Confirmar Pedido
+</button>
+
+</form>

@@ -1,17 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-</head>
-<body>
-    <a href="/">PÁGINA HOME</a>
-    <a href="/sobre/">SOBRE NÓS</a>
-    <a href="/contato/">CONTATO</a>
-    <h1>SEJA BEM VINDA(O) A MINHA LOJA!</h1> 
 
-    {% block content %}
-    {% endblock %}
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}Minha Loja{% endblock %}</title>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>SEJA BEM VINDA(O) À MINHA LOJA!</h1>
+
+<nav>
+
+<a href="/">Home</a>
+
+<a href="/produtos/">Produtos</a>
+
+<a href="/categorias/">Categorias</a>
+
+<a href="/carrinho/">Carrinho</a>
+
+<a href="/contato/">Contato</a>
+
+<a href="/sobre/">Sobre</a>
+
+</nav>
+
+<!-- BUSCA DE PRODUTOS -->
+
+<form action="{% url 'lojaapp:buscar_produto' %}" method="get">
+
+<input type="text" name="q" placeholder="Buscar produto">
+
+<button type="submit">Buscar</button>
+
+</form>
+
+</header>
+
+
+<main>
+
+{% block content %}
+{% endblock %}
+
+</main>
+
+
+<footer>
+
+<p>© 2026 Minha Loja</p>
+
+</footer>
+
 </body>
 </html>

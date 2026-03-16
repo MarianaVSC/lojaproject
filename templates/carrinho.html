@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Seu carrinho</h1>
+
+{% for item in itens %}
+
+<p>{{ item.produto.titulo }}</p>
+<p>Quantidade: {{ item.quantidade }}</p>
+<p>Subtotal: {{ item.subtotal }}</p>
+
+<a href="{% url 'lojaapp:remover_item' item.id %}">
+Remover
+</a>
+<a href="{% url 'lojaapp:finalizar_pedido' %}">
+Finalizar pedido
+</a>
+
+{% endfor %}
+
+<p>Total: {{ carrinho.total }}</p>
+
+{% endblock %}
