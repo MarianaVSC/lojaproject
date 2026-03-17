@@ -2,12 +2,32 @@
 
 {% block content %}
 
-<h1>{{ produto.titulo }}</h1>
+<div class="produto-detalhe">
 
-<img src="{{ produto.image.url }}" width="300">
+    <div class="imagem">
+        {% if produto.image %}
+            <img src="{{ produto.image.url }}">
+        {% endif %}
+    </div>
 
-<p>{{ produto.descricao }}</p>
+    <div class="info">
 
-<p>Preço: R$ {{ produto.preco_mercado }}</p>
+        <h1>{{ produto.titulo }}</h1>
+
+        <p class="descricao">
+            {{ produto.descricao }}
+        </p>
+
+        <p class="preco">
+            R$ {{ produto.preco_mercado }}
+        </p>
+
+        <a class="btn-comprar" href="{% url 'lojaapp:add_carrinho' produto.id %}">
+            Comprar
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}

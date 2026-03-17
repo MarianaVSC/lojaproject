@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import TemplateView, View, ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 from .models import Categoria, Produto, Carrinho, ItemCarrinho, OrdemPedido
@@ -34,24 +35,32 @@ class ProdutoDetailView(DetailView):
     context_object_name = "produto"
 
 
-class ProdutoCreateView(CreateView):
+class ProdutoCreateView(UserPassesTestMixin, CreateView):
     model = Produto
     fields = "__all__"
-    template_name = "produto_form.html"
+    template_name = "criar_produto.html"
     success_url = reverse_lazy("lojaapp:produtos")
 
+    def test_func(self):
+        return self.request.user.is_staff
 
-class ProdutoUpdateView(UpdateView):
+
+class ProdutoUpdateView(UserPassesTestMixin, UpdateView):
     model = Produto
     fields = "__all__"
-    template_name = "produto_form.html"
+    template_name = "editar_produto.html"
     success_url = reverse_lazy("lojaapp:produtos")
 
+    def test_func(self):
+        return self.request.user.is_staff
 
-class ProdutoDeleteView(DeleteView):
+class ProdutoDeleteView(UserPassesTestMixin, DeleteView):
     model = Produto
-    template_name = "produto_delete.html"
+    template_name = "deletar_produto.html"
     success_url = reverse_lazy("lojaapp:produtos")
+
+    def test_func(self):
+        return self.request.user.is_staff
 
 
 
@@ -63,7 +72,7 @@ class CategoriaListView(ListView):
 class CategoriaCreateView(CreateView):
     model = Categoria
     fields = "__all__"
-    template_name = "categoria_form.html"
+    template_name = "criar_categoria.html"
     success_url = reverse_lazy("lojaapp:categorias")
 
 def buscar_produto(request):

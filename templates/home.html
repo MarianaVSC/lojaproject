@@ -1,9 +1,46 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+
 {% block content %}
-    
-    <p>Explore nossos produtos e aproveite uma experiência de compra única. Temos uma variedade de itens para atender a todos os gostos e necessidades. Se tiver alguma dúvida ou precisar de ajuda, nossa equipe de atendimento ao cliente está sempre pronta para ajudar. Boas compras!</p>
-    
+
+<!-- BANNER -->
+<section class="banner">
+    <div class="banner-texto">
+        <h1>Nova Coleção</h1>
+        <p>Elegância que combina com você</p>
+        <a href="/produtos/" class="btn-banner">Ver Produtos</a>
+    </div>
+</section>
+
+<!-- DESTAQUE -->
+<section class="destaque">
+
+    <h2 class="titulo-home">Destaques</h2>
+
+    <div class="grid-produtos">
+
+        {% for produto in produtos %}
+
+        <div class="produto-card">
+
+            {% if produto.image %}
+                <img src="{{ produto.image.url }}">
+            {% endif %}
+
+            <h3>{{ produto.titulo }}</h3>
+            <p>R$ {{ produto.preco_mercado }}</p>
+
+            <a href="{% url 'lojaapp:produto_detalhe' produto.id %}">
+                Ver Produto
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
 {% endblock %}
 
  

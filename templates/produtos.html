@@ -4,7 +4,9 @@
 
 <h1>Produtos</h1>
 
-<a href="{% url 'lojaapp:criar_produto' %}">Cadastrar Produto</a>
+{% if request.user.is_staff %}
+    <a href="{% url 'lojaapp:criar_produto' %}">Cadastrar Produto</a>
+{% endif %}
 
 <div class="grid-produtos">
 
@@ -12,7 +14,11 @@
 
 <div class="produto-card">
 
-<img src="{{ produto.image.url }}">
+{% if produto.image %}
+    <img src="{{ produto.image.url }}" width="200">
+{% else %}
+    <p>Sem imagem</p>
+{% endif %}
 
 <h3>{{ produto.titulo }}</h3>
 
@@ -22,13 +28,19 @@
 Ver Produto
 </a>
 
+<br>
+
 <a href="{% url 'lojaapp:add_carrinho' produto.id %}">
 Adicionar ao carrinho
 </a>
 
+<br>
+
 <a href="{% url 'lojaapp:editar_produto' produto.id %}">
 Editar
 </a>
+
+<br>
 
 <a href="{% url 'lojaapp:deletar_produto' produto.id %}">
 Excluir
