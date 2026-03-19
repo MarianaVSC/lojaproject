@@ -201,3 +201,33 @@ class FinalizarPedidoView(View):
         del request.session["carrinho_id"]
 
         return redirect("lojaapp:home")
+
+class GerenciarCarrinhoView(View):
+    def get(self, request, *args, **kwargs):
+        cp_id = self.kwargs.get("cp_id") 
+        acao = request.GET.get("acao") 
+        item_obj = ItemCarrinho.objects.get(id=cp_id)
+        carrinho_obj = item_obj.carrinho
+
+        if acao == "inc":
+            item_obj.quantidade += 1
+            item_obj.subtotal += item_obj.produto.preco_mercado
+            item_obj.save()
+            carrinho_obj.total += item_obj.produto.preco_mercado
+            carrinho_obj.save()
+        
+        elif acao == "dec":
+            item_obj.quantidade -= 1
+            item_obj.subtotal -= item_obj.produto.preco_mercado
+            item_obj.save()
+            carrinho_obj.total -= item_obj.produto.preco_mercado
+            carrinho_obj.save()
+            if item_obj.quantidade == 0:
+                item_obj.delete()
+        
+        elif acao == "rmv":
+            carrinho_obj.total -= item_obj.subtotal
+            carrinho_obj.save()
+            item_obj.delete()
+
+        return redirect("lojaapp:ver_carrinho")

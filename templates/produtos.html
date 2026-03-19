@@ -2,54 +2,37 @@
 
 {% block content %}
 
-<h1 style="text-align:center; margin-top:30px;">Produtos</h1>
+<h1 style="text-align:center; margin: 60px 0 30px;">Nossos Produtos</h1>
 
 <div class="grid-produtos">
+    {% for produto in produtos %}
+    <div class="produto-card">
+        <a href="{% url 'lojaapp:produto_detalhe' produto.id %}">
+            {% if produto.image %}
+                <img src="{{ produto.image.url }}" alt="{{ produto.titulo }}">
+            {% else %}
+                <div style="height:400px; background:#eee; display:flex; align-items:center; justify-content:center; color: #888;">
+                    Sem Foto
+                </div> 
+            {% endif %}
+        </a>
 
-{% for produto in produtos %}
-
-<div class="produto-card">
-
-    <div class="img-container">
-        {% if produto.image %}
-            <img src="{{ produto.image.url }}">
-        {% else %}
-            <img src="https://via.placeholder.com/300x300">
-        {% endif %}
-    </div>
-
-    <div class="info-produto">
         <h3>{{ produto.titulo }}</h3>
-
         <p class="preco">R$ {{ produto.preco_mercado }}</p>
-
-        <div class="botoes">
-            <a href="{% url 'lojaapp:produto_detalhe' produto.id %}" class="btn editar">
-                Ver
-            </a>
-
-            <a href="{% url 'lojaapp:add_carrinho' produto.id %}" class="btn editar">
-                Carrinho
-            </a>
+        
+        <div class="botoes-card">
+            <a href="{% url 'lojaapp:produto_detalhe' produto.id %}" class="btn-card">Detalhes</a>
+            <a href="{% url 'lojaapp:add_carrinho' produto.id %}" class="btn-card">Adicionar</a>
         </div>
 
         {% if request.user.is_staff %}
-        <div class="botoes">
-            <a href="{% url 'lojaapp:editar_produto' produto.id %}" class="btn editar">
-                Editar
-            </a>
-
-            <a href="{% url 'lojaapp:deletar_produto' produto.id %}" class="btn excluir">
-                Excluir
-            </a>
+        <div class="botoes-card" style="margin-top: 5px;">
+            <a href="{% url 'lojaapp:editar_produto' produto.id %}" class="btn-card" style="background: #f8f8f8; color: #666;">Editar</a>
+            <a href="{% url 'lojaapp:deletar_produto' produto.id %}" class="btn-card" style="background: #fff0f0; color: #d9534f;">Excluir</a>
         </div>
         {% endif %}
-    </div>
-
-</div>
-
-{% endfor %}
-
+    </div> 
+    {% endfor %}
 </div>
 
 {% endblock %}

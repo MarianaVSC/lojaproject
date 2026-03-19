@@ -1,121 +1,320 @@
 
+/* ================= AJUSTES GERAIS ================= */
 :root {
     --cor-principal: #e91e63;
     --cor-texto: #2f2f2f;
+    --cor-fundo-suave: #fdfaf7; /* Tom creme para sofisticação */
 }
 
 body {
     margin: 0;
     font-family: 'Playfair Display', serif;
-    background: linear-gradient(to bottom, #ffffff, #f9f5f1);
+    background: #fff;
+    color: var(--cor-texto);
+    line-height: 1.6;
 }
 
-/* ================= TOPO ================= */
+/* ================= TOPO (NAVBAR) ================= */
 .topo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
+    padding: 25px 80px; /* Mais espaço nas laterais */
     background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--cor-principal);
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .menu a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #222;
-}
-
-.menu a:hover {
-    color: var(--cor-principal);
-}
-
-/* ================= BANNER ================= */
-.banner {
-    padding: 60px;
-}
-
-.banner-texto h1 {
-    font-size: 40px;
-}
-
-.banner-texto p {
-    margin: 10px 0 20px;
-}
-
-.btn-banner {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: var(--cor-principal);
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-}
-
-/* ================= GRID ================= */
-.grid-produtos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    padding: 60px;
-}
-
-/* ================= CARD ================= */
-.produto-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
+    margin-left: 30px;
+    font-family: 'Inter', sans-serif; /* Fonte secundária mais legível */
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
     transition: 0.3s;
 }
 
-.produto-card:hover {
-    transform: translateY(-5px);
+/* ================= BANNER HOME ================= */
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px;
+    background-color: var(--cor-fundo-suave);
+    margin-bottom: 60px;
 }
 
-/* ================= IMAGEM ================= */
-.img-container img,
+.banner-texto h1 {
+    font-size: 62px; /* Título de impacto */
+    margin: 0;
+    font-weight: 400;
+}
+
+.banner-texto p {
+    font-size: 18px;
+    margin: 20px 0 40px;
+    color: #666;
+    font-style: italic;
+}
+
+.btn-banner {
+    background-color: var(--cor-principal);
+    color: white;
+    padding: 18px 45px;
+    border-radius: 0; /* Bordas retas são mais "fashion" */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    transition: 0.4s;
+}
+
+/* ================= GRID DE PRODUTOS ================= */
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 50px; /* Mais espaço entre os itens */
+    padding: 20px 80px 80px;
+}
+
+.produto-card {
+    background: none;
+    text-align: center;
+    border-radius: 0;
+}
+
 .produto-card img {
     width: 100%;
-    height: 260px;
+    height: 400px; /* Altura maior para fotos de moda */
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 0; /* Mantendo o estilo editorial */
+    transition: 0.5s ease;
 }
 
-/* ================= TEXTO ================= */
+.produto-card:hover img {
+    transform: scale(1.02);
+}
+
 .produto-card h3 {
-    margin: 10px;
-    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 15px 0 5px;
+    font-weight: 500;
 }
 
 .produto-card p {
-    margin: 10px;
+    font-size: 16px;
     color: var(--cor-principal);
-    font-weight: bold;
+    margin-bottom: 15px;
 }
 
-/* ================= BOTÕES ================= */
-.btn {
-    display: block;
-    margin: 10px;
-    padding: 8px;
-    text-align: center;
-    border-radius: 8px;
+/* ================= BOTÕES DO CARD ================= */
+.botoes-card {
+    display: flex;
+    gap: 1px; /* Linha fina entre botões */
+    border: 1px solid #eee;
+}
+
+.btn-card {
+    flex: 1;
+    padding: 12px;
     text-decoration: none;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    color: #444;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #333;
+    background: #fff;
+    transition: 0.3s;
 }
 
-.btn:hover {
-    opacity: 0.8;
+.btn-card:hover {
+    background: var(--cor-principal);
+    color: #fff;
 }
-
 .excluir{
     background: #fff;
     color: black;
+}
+
+/* ================= ESTRUTURA DO CARRINHO ================= */
+.carrinho-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Coluna de itens maior que a de resumo */
+    gap: 30px;
+    padding: 0 20px;
+}
+
+/* Cartões Brancos Estilizados */
+.cartao-carrinho {
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+}
+
+.carrinho-titulo {
+    font-size: 28px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f9f5f1;
+    padding-bottom: 15px;
+}
+
+/* ================= LISTA DE ITENS ================= */
+.item-linha {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.item-linha:last-child {
+    border-bottom: none;
+}
+
+.item-detalhes {
+    flex: 2;
+}
+
+.item-detalhes h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--cor-texto);
+}
+
+.item-subtotal {
+    color: var(--cor-principal);
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+/* Controles de Quantidade (+ e -) */
+.item-controles {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-qtd {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-qtd:hover {
+    background-color: var(--cor-principal);
+    color: white;
+    border-color: var(--cor-principal);
+}
+
+.btn-remover-texto {
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-remover-texto:hover {
+    color: #ff4d4d;
+}
+
+/* ================= RESUMO DO PEDIDO (DIREITA) ================= */
+.resumo-pedido {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.total-destaque {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--cor-principal);
+    margin-top: 10px;
+}
+
+.btn-finalizar-checkout {
+    display: block;
+    width: 100%;
+    background-color: var(--cor-principal);
+    color: white;
+    text-align: center;
+    padding: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 25px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-finalizar-checkout:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+}
+
+/*  RESPONSIVIDADE */
+@media (max-width: 850px) {
+    .carrinho-container {
+        grid-template-columns: 1fr;
+    }
+    .resumo-pedido {
+        position: static;
+    }
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+
+nav a, .menu a {
+    color: #333; 
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+
+nav a:hover, .menu a:hover {
+    color: #c72485;
+    opacity: 0.7;
+}
+
+.voltar-link, a[href*="home"] {
+    color: #666 !important;
+    text-decoration: underline;
 }

@@ -1,28 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Seu carrinho</h1>
+<h1 style="text-align:center; margin-top:30px;">Seu Carrinho</h1>
 
-{% for item in itens %}
-    <div>
-        <p><strong>{{ item.produto.titulo }}</strong></p>
-        <p>Quantidade: {{ item.quantidade }}</p>
-        <p>Subtotal: R$ {{ item.subtotal }}</p>
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    {% for item in itens %}
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0;">
+            <div>
+                <p><strong>{{ item.produto.titulo }}</strong></p>
+                <p>Subtotal: R$ {{ item.subtotal }}</p>
+            </div>
 
-        <a href="{% url 'lojaapp:aumentar' item.id %}">[ + ]</a>
-        <a href="{% url 'lojaapp:diminuir' item.id %}">[ - ]</a>
-        <a href="{% url 'lojaapp:remover_item' item.id %}" style="color: red;">Remover</a>
-    </div>
-    <hr>
-{% empty %}
-    <p>Seu carrinho está vazio.</p>
-{% endfor %}
+            <div style="text-align: right;">
+                <p>Quantidade: {{ item.quantidade }}</p>
+                <a href="{% url 'lojaapp:gerenciarcarrinho' item.id %}?acao=inc" style="text-decoration:none; padding: 5px 10px; background: #eee; color: black;">+</a>
+                <a href="{% url 'lojaapp:gerenciarcarrinho' item.id %}?acao=dec" style="text-decoration:none; padding: 5px 12px; background: #eee; color: black;">-</a>
+                <a href="{% url 'lojaapp:gerenciarcarrinho' item.id %}?acao=rmv" style="color: red; margin-left: 15px; font-size: 14px;">Remover</a>
+            </div>
+        </div>
+    {% empty %}
+        <p style="text-align:center;">Seu carrinho está vazio.</p>
+        <div style="text-align:center;">
+            <a href="{% url 'lojaapp:home' %}">Voltar para a loja</a>
+        </div>
+    {% endfor %}
 
-{% if itens %}
-    <h3>Total: R$ {{ carrinho.total }}</h3>
-    <br>
-    <a href="{% url 'lojaapp:finalizar_pedido' %}" style="padding: 10px; background: green; color: white; text-decoration: none;">
-        FINALIZAR PEDIDO
-    </a>
-{% endif %}
-
+    {% if itens %}
+        <div style="margin-top: 30px; text-align: right;">
+            <h3>Total: R$ {{ carrinho.total }}</h3>
+            <br>
+            <a href="{% url 'lojaapp:finalizar_pedido' %}" style="padding: 15px 30px; background: black; color: white; text-decoration: none; font-weight: bold; display: inline-block;">
+                FINALIZAR PEDIDO
+            </a>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

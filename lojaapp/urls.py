@@ -26,5 +26,7 @@ urlpatterns = [
     path("diminuir/<int:pk>/", diminuir_quantidade, name="diminuir"),
 
     path("finalizar-pedido/", FinalizarPedidoView.as_view(), name="finalizar_pedido"),
+
+    path("gerenciar-carrinho/<int:cp_id>/", GerenciarCarrinhoView.as_view(), name="gerenciarcarrinho"),
 ]
 
