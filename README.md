@@ -40,7 +40,7 @@ Como Executar o Projeto
 1. Clonar o repositório
 
 ```
-git clone <link-do-repositorio>
+git clone https://github.com/MarianaVSC/lojaproject.git
 ```
 
 ---
@@ -48,7 +48,7 @@ git clone <link-do-repositorio>
  2. Acessar a pasta do projeto
 
 ```
-cd nome-do-projeto
+cd lojaproject
 ```
 
 ---
