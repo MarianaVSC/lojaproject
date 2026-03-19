@@ -35,6 +35,26 @@ Funcionalidades Principais
 
 
 
+  
+
+ Prints do Sistema
+
+ Página Inicial e Categorias:
+A Home apresenta os destaques e o menu de navegação por categorias.
+<img width="1365" alt="Home Victria Store" src="https://github.com/user-attachments/assets/01fd56ac-b771-489a-98f2-15e3b143398e" />
+
+ Vitrine de Produtos:
+Listagem de produtos com imagens dinâmicas e botões de ação rápida.
+<img width="1365" alt="Produtos Victria Store" src="https://github.com/user-attachments/assets/7dde8571-cbab-4c4f-98f6-1213d4b43cd0" />
+
+ Carrinho de Compras:
+Gerenciamento de itens, atualização de quantidades e cálculo de total.
+<img width="1359" alt="Carrinho Victria Store" src="https://github.com/user-attachments/assets/3f1f81ef-9526-4a0d-9cf4-00b1df35ce59" />
+
+
+
+
+
 Como Executar o Projeto
 
 1. Clonar o repositório
