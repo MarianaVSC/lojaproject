@@ -50,8 +50,15 @@ Listagem de produtos com imagens dinâmicas e botões de ação rápida.
 Gerenciamento de itens, atualização de quantidades e cálculo de total.
 <img width="1359" alt="Carrinho Victria Store" src="https://github.com/user-attachments/assets/3f1f81ef-9526-4a0d-9cf4-00b1df35ce59" />
 
+Modelo Relacional (DER)
+O diagrama abaixo representa a estrutura do banco de dados da loja Victria's , evidenciando como as entidades se conectam para gerenciar o catálogo, o carrinho e os pedidos.
+<img width="1202" height="529" alt="Image" src="https://github.com/user-attachments/assets/fc50dbb3-992a-436f-a7d9-3bc6959a6ae5" />
 
-
+Categoria: Onde ficam os nomes das seções (Vestidos, Conjunto, etc).
+Produto: Onde ficam os detalhes, preço e a imagem.
+Carrinho: Onde o sistema guarda o que o cliente quer comprar temporariamente.
+Item Carrinho: A tabela que liga o Produto ao Carrinho.
+Ordem Pedido: Onde a venda é finalizada.
 
 
 Como Executar o Projeto
