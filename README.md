@@ -1,8 +1,7 @@
  🛍️ Sistema de Loja Virtual
 
 Criadora:
-
-Mariana  Victoria Santos
+Mariana  Victoria 
 
 
  Descrição do Sistema
