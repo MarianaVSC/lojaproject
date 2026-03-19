@@ -1,24 +1,28 @@
 {% extends "base.html" %}
-
 {% block content %}
-
 <h1>Seu carrinho</h1>
 
 {% for item in itens %}
+    <div>
+        <p><strong>{{ item.produto.titulo }}</strong></p>
+        <p>Quantidade: {{ item.quantidade }}</p>
+        <p>Subtotal: R$ {{ item.subtotal }}</p>
 
-<p>{{ item.produto.titulo }}</p>
-<p>Quantidade: {{ item.quantidade }}</p>
-<p>Subtotal: {{ item.subtotal }}</p>
-
-<a href="{% url 'lojaapp:remover_item' item.id %}">
-Remover
-</a>
-<a href="{% url 'lojaapp:finalizar_pedido' %}">
-Finalizar pedido
-</a>
-
+        <a href="{% url 'lojaapp:aumentar' item.id %}">[ + ]</a>
+        <a href="{% url 'lojaapp:diminuir' item.id %}">[ - ]</a>
+        <a href="{% url 'lojaapp:remover_item' item.id %}" style="color: red;">Remover</a>
+    </div>
+    <hr>
+{% empty %}
+    <p>Seu carrinho está vazio.</p>
 {% endfor %}
 
-<p>Total: {{ carrinho.total }}</p>
+{% if itens %}
+    <h3>Total: R$ {{ carrinho.total }}</h3>
+    <br>
+    <a href="{% url 'lojaapp:finalizar_pedido' %}" style="padding: 10px; background: green; color: white; text-decoration: none;">
+        FINALIZAR PEDIDO
+    </a>
+{% endif %}
 
 {% endblock %}

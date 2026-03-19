@@ -87,73 +87,67 @@ def buscar_produto(request):
     return render(request, "produtos.html", {"produtos": produtos})
 
 def adicionar_carrinho(request, pk):
-
     produto = get_object_or_404(Produto, id=pk)
+    carrinho_id = request.session.get("carrinho_id")
 
-    try:
-        carrinho_id = request.session["carrinho_id"]
-        carrinho = Carrinho.objects.get(id=carrinho_id)
-
-    except:
-        carrinho = Carrinho.objects.create()
+    if carrinho_id:
+        carrinho = Carrinho.objects.filter(id=carrinho_id).first()
+    else:
+        carrinho = Carrinho.objects.create(total=0)
         request.session["carrinho_id"] = carrinho.id
 
-    
-    try:
-        item = ItemCarrinho.objects.get(carrinho=carrinho, produto=produto)
+    if not carrinho:
+        carrinho = Carrinho.objects.create(total=0)
+        request.session["carrinho_id"] = carrinho.id
 
-        item.quantidade += 1
-        item.subtotal += produto.preco_mercado
-        item.save()
+    item, created = ItemCarrinho.objects.get_or_create(
+        carrinho=carrinho, 
+        produto=produto,
+        defaults={'quantidade': 0, 'subtotal': 0}
+    )
 
-    except ItemCarrinho.DoesNotExist:
-
-        item = ItemCarrinho.objects.create(
-            carrinho=carrinho,
-            produto=produto,
-            quantidade=1,
-            subtotal=produto.preco_mercado
-        )
+    item.quantidade += 1
+    item.subtotal = item.quantidade * produto.preco_mercado
+    item.save()
 
     carrinho.total += produto.preco_mercado
     carrinho.save()
 
-    return redirect("lojaapp:produtos")
-
-def remover_item(request, pk):
-
-    try:
-        item = ItemCarrinho.objects.get(id=pk)
-
-        carrinho = item.carrinho
-
-        carrinho.total -= item.subtotal
-        carrinho.save()
-
-        item.delete()
-
-    except ItemCarrinho.DoesNotExist:
-        pass
-
-    return redirect("lojaapp:produtos")
+    return redirect("lojaapp:ver_carrinho")
 
 def ver_carrinho(request):
+    carrinho_id = request.session.get("carrinho_id")
+    carrinho = Carrinho.objects.filter(id=carrinho_id).first() if carrinho_id else None
+    itens = ItemCarrinho.objects.filter(carrinho=carrinho) if carrinho else []
 
-    try:
-        carrinho_id = request.session["carrinho_id"]
-        carrinho = Carrinho.objects.get(id=carrinho_id)
-        itens = ItemCarrinho.objects.filter(carrinho=carrinho)
+    return render(request, "carrinho.html", {"carrinho": carrinho, "itens": itens})
 
-    except:
-        carrinho = None
-        itens = []
+def remover_item(request, pk):
+    item = get_object_or_404(ItemCarrinho, id=pk)
+    carrinho = item.carrinho
+    carrinho.total -= item.subtotal
+    carrinho.save()
+    item.delete()
+    return redirect("lojaapp:ver_carrinho")
 
-    context = {
-        "carrinho": carrinho,
-        "itens": itens
-    }
+def aumentar_quantidade(request, pk):
+    item = get_object_or_404(ItemCarrinho, id=pk)
+    item.quantidade += 1
+    item.subtotal = item.quantidade * item.produto.preco_mercado
+    item.save()
+    item.carrinho.total += item.produto.preco_mercado
+    item.carrinho.save()
+    return redirect("lojaapp:ver_carrinho")
 
-    return render(request, "carrinho.html", context)
+def diminuir_quantidade(request, pk):
+    item = get_object_or_404(ItemCarrinho, id=pk)
+    if item.quantidade > 1:
+        item.quantidade -= 1
+        item.subtotal = item.quantidade * item.produto.preco_mercado
+        item.save()
+        item.carrinho.total -= item.produto.preco_mercado
+        item.carrinho.save()
+    return redirect("lojaapp:ver_carrinho")
 
 class FinalizarPedidoView(View):
 

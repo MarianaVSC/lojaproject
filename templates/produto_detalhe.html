@@ -2,16 +2,19 @@
 
 {% block content %}
 
-<div class="produto-detalhe">
+<section class="produto-detalhe">
 
+    <!-- IMAGEM -->
     <div class="imagem">
         {% if produto.image %}
             <img src="{{ produto.image.url }}">
+        {% else %}
+            <img src="https://via.placeholder.com/400x400">
         {% endif %}
     </div>
 
+    <!-- INFORMAÇÕES -->
     <div class="info">
-
         <h1>{{ produto.titulo }}</h1>
 
         <p class="descricao">
@@ -22,12 +25,18 @@
             R$ {{ produto.preco_mercado }}
         </p>
 
-        <a class="btn-comprar" href="{% url 'lojaapp:add_carrinho' produto.id %}">
-            Comprar
+        <a href="{% url 'lojaapp:add_carrinho' produto.id %}" class="btn-comprar">
+            Adicionar ao carrinho
         </a>
 
+        {% if request.user.is_staff %}
+        <div class="admin-botoes">
+            <a href="{% url 'lojaapp:editar_produto' produto.id %}" class="btn editar">Editar</a>
+            <a href="{% url 'lojaapp:deletar_produto' produto.id %}" class="btn excluir">Excluir</a>
+        </div>
+        {% endif %}
     </div>
 
-</div>
+</section>
 
 {% endblock %}

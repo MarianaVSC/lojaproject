@@ -22,6 +22,8 @@ urlpatterns = [
     path("add-carrinho/<int:pk>/", adicionar_carrinho, name="add_carrinho"),
     path("remover-item/<int:pk>/", remover_item, name="remover_item"),
     path("buscar/", buscar_produto, name="buscar_produto"),
+    path("aumentar/<int:pk>/", aumentar_quantidade, name="aumentar"),
+    path("diminuir/<int:pk>/", diminuir_quantidade, name="diminuir"),
 
     path("finalizar-pedido/", FinalizarPedidoView.as_view(), name="finalizar_pedido"),
 ]

@@ -23,15 +23,17 @@
         <div class="produto-card">
 
             {% if produto.image %}
-                <img src="{{ produto.image.url }}">
+                <div class="img-container">
+                  <img src="{{ produto.image.url }}">
+                </div>
             {% endif %}
 
             <h3>{{ produto.titulo }}</h3>
             <p>R$ {{ produto.preco_mercado }}</p>
 
-            <a href="{% url 'lojaapp:produto_detalhe' produto.id %}">
-                Ver Produto
-            </a>
+            <a href="{% url 'lojaapp:produto_detalhe' produto.id %}" class="btn editar">
+               Ver
+             </a>
 
         </div>
 
